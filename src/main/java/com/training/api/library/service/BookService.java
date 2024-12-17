@@ -80,8 +80,6 @@ public class BookService {
 
 	public void deleteBook(Book book) {
 
-		checkIfNull(book, "Cannot delete null book");
-
 		bookRepository.delete(book);
 
 	}
