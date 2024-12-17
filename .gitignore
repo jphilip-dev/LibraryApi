@@ -6,6 +6,8 @@ db.properties
 *.project
 *.classpath
 .settings/
+/bin/
+target/
 
 
 HELP.md
