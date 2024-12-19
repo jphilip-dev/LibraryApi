@@ -1,9 +1,7 @@
 package com.training.api.library.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.training.api.library.entity.Book;
@@ -14,7 +12,6 @@ public class BookService {
 
 	private BookRepository bookRepository;
 
-	@Autowired
 	public BookService(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;
 	}

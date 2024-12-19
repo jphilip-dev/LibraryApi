@@ -4,7 +4,12 @@ import java.util.Objects;
 
 public class LoanId implements Serializable {
 
-    private String username;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String username;
     private Long bookId;
 
     public LoanId() {}
