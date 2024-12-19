@@ -28,7 +28,7 @@ public class LibraryController {
 	}
 	
 	@GetMapping("/books/{bookId}")
-	public Book getBookById(@PathVariable int bookId) {
+	public Book getBookById(@PathVariable Long bookId) {
 		return bookService.getBookById(bookId);
 	}
 	
@@ -44,7 +44,7 @@ public class LibraryController {
 	}
 	
 	@DeleteMapping("/books/{bookId}")
-	public String removeBook(@PathVariable int bookId) {
+	public String removeBook(@PathVariable Long bookId) {
 		Book book = bookService.getBookById(bookId);
 		bookService.deleteBook(book);
 		

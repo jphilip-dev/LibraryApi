@@ -23,7 +23,7 @@ public class BookService {
 		return bookRepository.findAll();
 	}
 
-	public Book getBookById(int id) {
+	public Book getBookById(Long id) {
 
 		if (id <= 0) {
 			throw new IllegalArgumentException("id cannot be less than or equal Zero");
@@ -74,6 +74,10 @@ public class BookService {
 	public Book saveNewBook(Book book) {
 		checkIfNull(book, "Cannot save null book");
 		// no need to set id to 0
+		
+		if(bookRepository.findByIsbn(book.getIsbn()).isPresent()) {
+			throw new IllegalArgumentException(String.format("Book with ISBN: %s already exists", book.getIsbn()));
+		}
 
 		return bookRepository.save(book);
 	}

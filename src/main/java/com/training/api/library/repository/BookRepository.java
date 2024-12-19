@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.training.api.library.entity.Book;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, Integer> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 	
 	Optional<Book> findByTitle(String title);
 	
@@ -20,5 +20,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	// Using named parameter in the query
     @Query("SELECT b FROM Book b WHERE b.title LIKE %:title%")
     List<Book> findBooksByTitleContaining(@Param("title") String title);
+    
+    Optional<Book> findByIsbn(String isbn);
 
 }
