@@ -1,22 +1,27 @@
 package com.training.api.library.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.training.api.library.service.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+	
+	@Autowired
+	private UserService userService;
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -35,22 +40,18 @@ public class SecurityConfiguration {
 	
 	@Bean // in memory users (temporary)
 	public UserDetailsService userDetailsService() {
-		UserDetails normalUser = User.builder()
-				.username("gc")
-				.password("$2a$12$ouJ3lObZoFtlvi8ObOUryeRBZ..0HiHqhtPNIbAFX.oIamCnb83mS") // 1234
-				.roles("USER")
-				.build();
-		
-		UserDetails adminUser = User.builder()
-				.username("admin")
-				.password("$2a$12$ouJ3lObZoFtlvi8ObOUryeRBZ..0HiHqhtPNIbAFX.oIamCnb83mS") // 1234
-				.roles("ADMIN","USER")
-				.build();
-		return new InMemoryUserDetailsManager(normalUser,adminUser);
+		return userService;
 	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(userService);
+		provider.setPasswordEncoder(passwordEncoder());
+		return provider;
 	}
 }

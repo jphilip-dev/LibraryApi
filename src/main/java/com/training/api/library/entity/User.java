@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -29,7 +30,7 @@ public class User {
     @Column(name = "status", nullable = false)
     private boolean status;
 
-    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "username", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Role> roles;
 
     // Getters and setters
@@ -65,7 +66,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -80,5 +81,12 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", status=" + status + ", roles="  + roles + "]";
+	}
+    
 }
 
