@@ -1,5 +1,6 @@
 package com.training.api.library.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -86,6 +87,19 @@ public class User {
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", status=" + status + ", roles="  + roles + "]";
+	}
+	
+	//convenience method
+	
+	public void addRole(String role) {
+		if(roles == null ) {
+			roles = new ArrayList<Role>();
+		}
+		Role newRole = new Role();
+		newRole.setUsername(username);
+		newRole.setRole(role);
+		newRole.setUser(this);
+		roles.add(newRole);
 	}
     
 }
