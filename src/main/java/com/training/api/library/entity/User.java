@@ -15,85 +15,85 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class User {
 
-    @Id
-    @Column(name = "username", nullable = false)
-    private String username;
+	@Id
+	@Column(name = "username", nullable = false)
+	private String username;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+	@Column(name = "password", nullable = false)
+	private String password;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+	@Column(name = "first_name", nullable = false)
+	private String firstName;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+	@Column(name = "last_name", nullable = false)
+	private String lastName;
 
-    @Column(name = "status", nullable = false)
-    private boolean status;
+	@Column(name = "status", nullable = false)
+	private boolean status;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "username", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Role> roles;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "username", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Role> roles;
 
-    // Getters and setters
-    public String getUsername() {
-        return username;
-    }
+	// Getters and setters
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public boolean getStatus() {
-        return status;
-    }
+	public boolean getStatus() {
+		return status;
+	}
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 
-    public List<Role> getRoles() {
-        return roles;
-    }
+	public List<Role> getRoles() {
+		return roles;
+	}
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", status=" + status + ", roles="  + roles + "]";
+				+ lastName + ", status=" + status + ", roles=" + roles + "]";
 	}
-	
-	//convenience method
-	
+
+	// convenience method
+
 	public void addRole(String role) {
-		if(roles == null ) {
-			roles = new ArrayList<Role>();
+		if (roles == null) {
+			roles = new ArrayList<>();
 		}
 		Role newRole = new Role();
 		newRole.setUsername(username);
@@ -101,6 +101,5 @@ public class User {
 		newRole.setUser(this);
 		roles.add(newRole);
 	}
-    
-}
 
+}

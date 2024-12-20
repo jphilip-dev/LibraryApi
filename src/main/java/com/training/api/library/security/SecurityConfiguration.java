@@ -27,7 +27,10 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.authorizeHttpRequests(config -> {
 			config.requestMatchers(HttpMethod.POST, "/api/register").anonymous();
-			config.requestMatchers(HttpMethod.GET, "/api/books","/api/books/**").hasRole("USER");
+			
+			config.requestMatchers(HttpMethod.GET, "/api/books","/api/books/**","/api/loans").hasRole("USER");
+			
+			config.requestMatchers(HttpMethod.GET, "/api/books", "/api/users").hasRole("ADMIN");
 			config.requestMatchers(HttpMethod.PUT, "/api/books").hasRole("ADMIN");
 			config.requestMatchers(HttpMethod.POST, "/api/books").hasRole("ADMIN");
 			config.requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN");
